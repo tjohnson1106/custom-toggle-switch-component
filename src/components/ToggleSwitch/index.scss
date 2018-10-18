@@ -1,0 +1,24 @@
+// DEFAULT COLOR VARIABLES
+
+$ball-color: #ffffff;
+$active-color: #ffffff;
+$inactive-color: #ffffff;
+
+// DEFAULT SIZING VARIABLES
+
+$switch-size: 32px;
+$ball-spacing: 2px;
+$stretch-factor: 1.625;
+
+// DEFAULT CLASS VARIABLE
+
+$switch-class: "switch-toggle";
+
+@mixin switch(
+  $size: $switch-size,
+  $spacing: $ball-spacing,
+  $stretch: $stretch-factor,
+  $color: $active-color,
+  $class: $switch-class
+) {
+}
