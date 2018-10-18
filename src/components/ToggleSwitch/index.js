@@ -44,6 +44,37 @@ class ToggleSwitch extends Component {
       }
     );
   };
+
+  render() {
+    const { enabled } = this.state;
+
+    const {
+      enabled: _enabled,
+      theme,
+      onClick,
+      className,
+      onStateChanged,
+      ...restProps
+    } = this.props;
+
+    const switchTheme = theme && isString(theme) ? theme : "default";
+
+    const switchClasses = classnames(
+      `switch switch--${switchTheme}`,
+      className
+    );
+
+    const togglerClasses = classnames(
+      "switch-toggle",
+      `switch-toggle--${enabled ? "on" : "off"}`
+    );
+
+    return (
+      <div className={switchClasses} onClick={this.toggleSwitch} {...restProps}>
+        <div className={togglerClasses} />
+      </div>
+    );
+  }
 }
 
 ToggleSwitch.propTypes = {
