@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import isString from "lodash/isString";
 import isFunction from "lodash/isFunction";
 import isBoolean from "lodash/isBoolean";
-
 import classnames from "classnames";
+
 import "./index.css";
 
 class ToggleSwitch extends Component {
