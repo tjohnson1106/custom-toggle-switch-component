@@ -21,6 +21,29 @@ class ToggleSwitch extends Component {
 
     return isBoolean(enabled) && enabled;
   }
+
+  toggleSwitch = evt => {
+    evt.persist();
+    evt.preventDefault();
+
+    const { onClick, onStateChanged } = this.props;
+
+    this.setState(
+      {
+        enabled: !this.state.enabled
+      },
+      () => {
+        const state = this.state;
+
+        const switchEvent = Object.assign(evt, {
+          SWITCH_STATE: state
+        });
+
+        isFunction(onClick) && onClick(switchEvent);
+        isFunction(onStateChanged) && onStateChanged(state);
+      }
+    );
+  };
 }
 
 ToggleSwitch.propTypes = {
