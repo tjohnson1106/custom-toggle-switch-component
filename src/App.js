@@ -1,10 +1,10 @@
-import React, { Component } from "react";
 import classnames from "classnames";
 import snakeCase from "lodash/snakeCase";
-
+import React, { Component } from "react";
 import Switch from "./components/ToggleSwitch";
 import "./App.css";
 
+// List of activities that can trigger notifications
 const ACTIVITIES = [
   "News Feeds",
   "Likes and Comments",
@@ -17,10 +17,8 @@ const ACTIVITIES = [
 ];
 
 class App extends Component {
-  state = {
-    enabled: false,
-    only: ACTIVITIES.map(snakeCase)
-  };
+  // Initialize app state, all activities are enabled by default
+  state = { enabled: false, only: ACTIVITIES.map(snakeCase) };
 
   toggleNotifications = ({ enabled }) => {
     const { only } = this.state;
@@ -29,6 +27,46 @@ class App extends Component {
       only: enabled ? only : ACTIVITIES.map(snakeCase)
     });
   };
+
+  toggleActivityEnabled = activity => ({ enabled }) => {
+    let { only } = this.state;
+
+    if (enabled && !only.includes(activity)) {
+      only.push(activity);
+      return this.setState({ only });
+    }
+
+    if (!enabled && only.includes(activity)) {
+      only = only.filter(item => item !== activity);
+      return this.setState({ only });
+    }
+  };
+
+  renderNotifiableActivities() {
+    const { only } = this.state;
+
+    return ACTIVITIES.map((activity, index) => {
+      const key = snakeCase(activity);
+      const enabled = only.includes(key);
+
+      const activityClasses = classnames(
+        "small mb-0 pl-3",
+        enabled ? "text-dark" : "text-secondary"
+      );
+
+      return (
+        <div key={index} className="col-5 d-flex mb-3">
+          <Switch
+            theme="graphite-small"
+            className="d-flex"
+            enabled={enabled}
+            onStateChanged={this.toggleActivityEnabled(key)}
+          />
+          <span className={activityClasses}>{activity}</span>
+        </div>
+      );
+    });
+  }
 
   render() {
     const { enabled } = this.state;
@@ -48,7 +86,6 @@ class App extends Component {
               enabled={enabled}
               onStateChanged={this.toggleNotifications}
             />
-
             <span className={headingClasses}>Notifications</span>
           </div>
 
