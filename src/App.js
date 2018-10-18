@@ -52,7 +52,57 @@ class App extends Component {
             <span className={headingClasses}>Notifications</span>
           </div>
 
-          {/_ ...Notification options here... _/}
+          {enabled && (
+            <div className="w-100 mt-5">
+              <div className="container-fluid px-0">
+                <div className="pt-5">
+                  <div className="d-flex justify-content-between align-items-center">
+                    <span className="d-block font-weight-bold text-secondary small">
+                      Email Address
+                    </span>
+                    <span className="text-secondary small mb-1 d-block">
+                      <small>
+                        Provide a valid email address with which to receive
+                        notifications.
+                      </small>
+                    </span>
+                  </div>
+
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      placeholder="mail@domain.com"
+                      className="form-control"
+                      style={{ fontSize: 14 }}
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-5 mt-4">
+                  <div className="d-flex justify-content-between align-items-center border-bottom pb-2">
+                    <span className="d-block font-weight-bold text-secondary small">
+                      Filter Notifications
+                    </span>
+                    <span className="text-secondary small mb-1 d-block">
+                      <small>
+                        Select the account activities for which to receive
+                        notifications.
+                      </small>
+                    </span>
+                  </div>
+
+                  <div className="mt-5">
+                    <div
+                      className="row flex-column align-content-start"
+                      style={{ maxHeight: 180 }}
+                    >
+                      {this.renderNotifiableActivities()}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );
